@@ -33,7 +33,7 @@ pipeline {
     stage('Build') {
       steps {
         withMaven(
-          mavenSettingsConfig: 'f007350a-b1d5-44a8-9757-07c22cd2a360'){
+          mavenSettingsConfig: 'certified-mvn-settings.xml'){
             sh 'mvn -B clean package -DskipTests'
         }
       }
@@ -42,7 +42,7 @@ pipeline {
     stage('Test') {
       steps {
         withMaven(
-          mavenSettingsConfig: 'f007350a-b1d5-44a8-9757-07c22cd2a360'){
+          mavenSettingsConfig: 'certified-mvn-settings.xml'){
             sh 'mvn -B test -Dajdbc.driver=$DB_DRIVER -Dajdbc.url=$DB_JDBC_URL -Dajdbc.user=$DB_JDBC_CRED_USR -Dajdbc.password=$DB_JDBC_CRED_PSW -Dajdbc.defaultdb=$DB_DEFAULTDB'
         }
       }
