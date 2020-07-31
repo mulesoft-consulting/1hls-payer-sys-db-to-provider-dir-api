@@ -70,7 +70,7 @@ pipeline {
         ANYPOINT_ENV = credentials("${ENVIRONMENT}-anypoint-client-id-secret")
       }
       steps {
-        sh 'mvn -V -B -DskipTests deploy -DmuleDeploy -Dmule.version=$MULE_VERSION -Danypoint.username=$DEPLOY_CREDS_USR -Danypoint.password=$DEPLOY_CREDS_PSW -Dcloudhub.environment=$ENVIRONMENT -Denv.anypoint_client_id=$ANYPOINT_ENV_USR -Denv.anypoint_client_secret=$ANYPOINT_ENV_PSW -DbusinessGroup=$BG -Dworkers=$WORKER -Dajdbc.url=$DB_JDBC_URL -Dajdbc.driver=$DB_DRIVER -Dajdbc.user=$DB_JDBC_CRED_USR -Dajdbc.password=$DB_JDBC_CRED_PSW -Dajdbc.defaultdb=$DB_DEFAULTDB'
+        sh 'mvn -V -B -DskipTests deploy -DmuleDeploy -Dmule.version=$MULE_VERSION -Danypoint.username=$DEPLOY_CREDS_USR -Danypoint.password=$DEPLOY_CREDS_PSW -Dcloudhub.environment=$ENVIRONMENT -Denv.anypoint_client_id=$ANYPOINT_ENV_USR -Denv.anypoint_client_secret=$ANYPOINT_ENV_PSW -DbusinessGroup="$BG" -Dworkers=$WORKER -Dajdbc.url=$DB_JDBC_URL -Dajdbc.driver=$DB_DRIVER -Dajdbc.user=$DB_JDBC_CRED_USR -Dajdbc.password=$DB_JDBC_CRED_PSW -Dajdbc.defaultdb=$DB_DEFAULTDB'
       }
     }
     stage('Deploy Production') {
@@ -82,7 +82,7 @@ pipeline {
           ANYPOINT_ENV = credentials("${ENVIRONMENT}-anypoint-client-id-secret")
         }
         steps {
-          sh 'mvn -V -B -DskipTests deploy -DmuleDeploy -Dmule.version=$MULE_VERSION -Danypoint.username=$DEPLOY_CREDS_USR -Danypoint.password=$DEPLOY_CREDS_PSW -Dcloudhub.environment=$ENVIRONMENT -Denv.anypoint_client_id=$ANYPOINT_ENV_USR -Denv.anypoint_client_secret=$ANYPOINT_ENV_PSW -DbusinessGroup=$BG -Dworkers=$WORKER -Dajdbc.url=$DB_JDBC_URL -Dajdbc.driver=$DB_DRIVER -Dajdbc.user=$DB_JDBC_CRED_USR -Dajdbc.password=$DB_JDBC_CRED_PSW -Dajdbc.defaultdb=$DB_DEFAULTDB'
+          sh 'mvn -V -B -DskipTests deploy -DmuleDeploy -Dmule.version=$MULE_VERSION -Danypoint.username=$DEPLOY_CREDS_USR -Danypoint.password=$DEPLOY_CREDS_PSW -Dcloudhub.environment=$ENVIRONMENT -Denv.anypoint_client_id=$ANYPOINT_ENV_USR -Denv.anypoint_client_secret=$ANYPOINT_ENV_PSW -DbusinessGroup="$BG" -Dworkers=$WORKER -Dajdbc.url=$DB_JDBC_URL -Dajdbc.driver=$DB_DRIVER -Dajdbc.user=$DB_JDBC_CRED_USR -Dajdbc.password=$DB_JDBC_CRED_PSW -Dajdbc.defaultdb=$DB_DEFAULTDB'
         }
     }
     stage('Integration Test') {
