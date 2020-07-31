@@ -12,7 +12,7 @@ pipeline {
     MULE_VERSION = "${params.MULE_VERSION}"
     BG = "1Platform\\Health Care Accelerator\\Payer"
     BG_ID = "dffb45a2-a86e-4e2d-9541-f2b15cff324d"
-    WORKER = "Micro"
+    WORKER = "Small"
     DB_JDBC_URL = credentials("${BRANCH_NAME}-ajdbc-url")
     DB_JDBC_CRED = credentials("${BRANCH_NAME}-ajdbc-cred")
     DB_DRIVER = "org.postgresql.Driver"
