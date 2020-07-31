@@ -20,18 +20,18 @@
 		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 		<mule.maven.plugin.version>3.3.5</mule.maven.plugin.version>
 		<businessGroup>1Platform/Health Care Accelerator/Payer</businessGroup>
-		<businessGroupId>dffb45a2-a86e-4e2d-9541-f2b15cff324d</businessGroupId>
+		<businessGroupId></businessGroupId>
 		<munit.version>2.2.5</munit.version>
 	    <workers>1</workers>
 		<workerType>MICRO</workerType>
 		<region>us-east-1</region>
 		<anypoint.platform.config.analytics.agent.enabled>true</anypoint.platform.config.analytics.agent.enabled>
 		<anypoint.platform.visualizer.layer>SYSTEM</anypoint.platform.visualizer.layer>
-		<env.anypoint_client_id>7e3cb2431e4c404b85ea7fe0ba373afe</env.anypoint_client_id>
-		<env.anypoint_client_secret>70F1Df9c05564d5993a1cAc45f9AE91d</env.anypoint_client_secret>
+		<env.anypoint_client_id></env.anypoint_client_id>
+		<env.anypoint_client_secret></env.anypoint_client_secret>
 		<anypoint.platform.gatekeeper>flexible</anypoint.platform.gatekeeper>
- 		<securepropkey>KEYDONOTEMBED</securepropkey>
-		<autodiscoveryId>0000000</autodiscoveryId>
+ 		<securepropkey></securepropkey>
+		<autodiscoveryId></autodiscoveryId>
     	<my.clientId></my.clientId>
     	<my.clientSecret/>
 		<ajdbc.driver>org.postgresql.Driver</ajdbc.driver>
@@ -73,7 +73,6 @@
       					<workers>${workers}</workers>
       					<region>${region}</region>
       					<businessGroup>${businessGroup}</businessGroup>
-      					<businessGroupId>${businessGroupId}</businessGroupId>
       					<objectStoreV2>${objectStoreV2}</objectStoreV2>
       					<properties>
         						<anypoint.platform.config.analytics.agent.enabled>${anypoint.platform.config.analytics.agent.enabled}</anypoint.platform.config.analytics.agent.enabled>

@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<db:config name="Postgresql-DB-Configuration" doc:name="Database Config" doc:id="a5a531ef-066b-4b6d-9255-d9ff8d0e2963" >
 		<db:generic-connection url="${ajdbc.url}" driverClassName="${ajdbc.driver}" user="${ajdbc.user}" password="${ajdbc.password}" />
 	</db:config>
-	<configuration-properties doc:name="Configuration properties" doc:id="57659562-4891-4716-9146-ec9740078e81" file="configuration.yaml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="57659562-4891-4716-9146-ec9740078e81" file="config/configuration.yaml" />
 	<ee:object-store-caching-strategy name="Caching_Strategy" doc:name="Caching Strategy" doc:id="90ba3beb-a400-4616-bbea-2f45ae7774d7" />
 	<api-gateway:autodiscovery apiId="${autodiscoveryid}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="3bdbe609-71b7-4f23-898b-2ba4f7289803" flowRef="fhir-r4-practitioner-api-main" />
 	<flow name="getPractitioner" doc:id="6ff9d74b-482f-4c12-aab4-c18badaf4439" tracking:enable-default-events="true">
