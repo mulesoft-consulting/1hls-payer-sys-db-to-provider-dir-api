@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<db:config name="Postgresql-DB-Configuration" doc:name="Database Config" doc:id="a5a531ef-066b-4b6d-9255-d9ff8d0e2963" >
+		<db:generic-connection url="${ajdbc.url}" driverClassName="${ajdbc.driver}" user="${ajdbc.user}" password="${ajdbc.password}" />
+	</db:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="57659562-4891-4716-9146-ec9740078e81" file="configuration.yaml" />
+	<ee:object-store-caching-strategy name="Caching_Strategy" doc:name="Caching Strategy" doc:id="90ba3beb-a400-4616-bbea-2f45ae7774d7" />
+	<api-gateway:autodiscovery apiId="${autodiscoveryid}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="3bdbe609-71b7-4f23-898b-2ba4f7289803" flowRef="fhir-r4-practitioner-api-main" />
+	<flow name="getPractitioner" doc:id="6ff9d74b-482f-4c12-aab4-c18badaf4439" tracking:enable-default-events="true">
+		<logger level="INFO" doc:name="Log the incoming GET request Details" doc:id="268980a6-506c-42f6-9f2b-9b840be532a7" message="#[output application/json --- attributes]"/>
+		<choice doc:name="Choice" doc:id="ec46eb84-42e1-4e2d-9ebb-b85e10191a8f" >
+			<when expression="#[!isEmpty(attributes.queryParams) and !isEmpty(attributes.queryParams.identifier)]">
+				<logger level="INFO" doc:name="Ident" doc:id="dda6a6f9-56d7-45f3-b02f-ab9f537d3aa6" message="WE HAVE AN IDENTIFIER"/>
+				<db:select doc:name="Select Provider By Identifier" doc:id="834117f0-9ef4-45be-aa00-988a7dc24a02" config-ref="Postgresql-DB-Configuration">
+					<db:sql><![CDATA[SELECT * from providerdirectory WHERE "NPI"= :searchnpi;]]></db:sql>
+						<db:input-parameters><![CDATA[#[{
+	"searchnpi": attributes.queryParams.identifier
+}]]]></db:input-parameters>
+				</db:select>
+		    </when>
+		    
+			<otherwise >
+				<ee:cache doc:name="Cache" doc:id="660dae20-d3da-499e-bd58-00dfcb72683f">
+			<db:select doc:name="Select Provider Info from my Database" doc:id="fdcc5419-1e6d-49d2-bae4-6fb4ea0ee46c" config-ref="Postgresql-DB-Configuration">
+				<db:sql><![CDATA[SELECT * from providerdirectory;]]></db:sql>
+			</db:select>
+		</ee:cache>
+			</otherwise>
+		</choice>
+		<ee:transform doc:name="Map-Database-Fields-to-FHIR-VHDIR" doc:id="4dc50ac7-1381-4df3-bf54-57722b0c76b2" >
+			<ee:message >
+				<ee:set-payload resource="database-to-FHIR-Practitioner.dwl" />
+				
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
