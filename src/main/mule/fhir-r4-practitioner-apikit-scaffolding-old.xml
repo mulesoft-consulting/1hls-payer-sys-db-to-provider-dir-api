@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd  http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+<mule xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd  http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd">
     <http:listener-config name="fhir-r4-practitioner-api-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
     <apikit:config name="fhir-r4-practitioner-api-config" api="resource::org.mule.examples:fhir-r4-practitioner-api:1.0.0:raml:zip:fhir-r4-practitioner-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <flow name="fhir-r4-practitioner-api-main">
+    <scripting:config name="Scripting_Config" doc:name="Scripting Config" doc:id="76c7a9c7-589c-4ecf-9f42-6e51cf1d63dd" />
+	<flow name="fhir-r4-practitioner-api-main">
         <http:listener config-ref="fhir-r4-practitioner-api-httpListenerConfig" path="/api/*" doc:name="HTTP:8081:/api Listener">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers>#[vars.outboundHeaders default {}]</http:headers>
@@ -169,7 +171,8 @@ output application/json
         <logger level="INFO" message="get:\Practitioner\_history:fhir-r4-practitioner-api-config" />
     </flow>
     <flow name="get:\Practitioner\_search:fhir-r4-practitioner-api-config">
-        <logger level="INFO" message="get:\Practitioner\_search:fhir-r4-practitioner-api-config" />
+        <tracking:transaction doc:name="Set Transaction Id" doc:id="2d13aa2f-7db4-4acc-9fca-a94b5ae73d2a" id='#[(now() &gt;&gt; "America/New_York") as String ++ "--" ++ uuid() as String]'/>
+		<flow-ref doc:name="Call getPractitionerSearch Flow" doc:id="3a43a4f0-27d6-4e34-8deb-196b531d3204" name="getPractitionerSearch"/>
     </flow>
     <flow name="get:\Practitioner\(id):fhir-r4-practitioner-api-config">
         <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core">
