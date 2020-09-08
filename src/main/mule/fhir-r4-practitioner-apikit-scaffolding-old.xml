@@ -3,7 +3,7 @@
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
 http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
     <http:listener-config name="fhir-r4-practitioner-api-httpListenerConfig">
-        <http:listener-connection host="0.0.0.0" port="${https.port}" tlsContext="TLS_Context"/>
+        <http:listener-connection host="0.0.0.0" port="${https.port}" tlsContext="TLS_Context" protocol="HTTPS"/>
     </http:listener-config>
     <apikit:config name="fhir-r4-practitioner-api-config" api="resource::org.mule.examples:fhir-r4-practitioner-api:1.0.0:raml:zip:fhir-r4-practitioner-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <scripting:config name="Scripting_Config" doc:name="Scripting Config" doc:id="76c7a9c7-589c-4ecf-9f42-6e51cf1d63dd" />
