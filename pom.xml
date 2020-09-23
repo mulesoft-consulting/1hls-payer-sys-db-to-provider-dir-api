@@ -19,7 +19,7 @@
 		<applicationName>${project.name}</applicationName>
 		<maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 		<mule.maven.plugin.version>3.3.5</mule.maven.plugin.version>
-		<businessGroup>1Platform/1hls/Payer</businessGroup>
+		<businessGroup>1Platform/1HLS/Payer</businessGroup>
 		<businessGroupId/>
 		<munit.version>2.2.5</munit.version>
 	    <workers>1</workers>

@@ -10,7 +10,7 @@ pipeline {
   environment {
     DEPLOY_CREDS = credentials('deploy-anypoint-user')
     MULE_VERSION = "${params.MULE_VERSION}"
-    BG = "1Platform\\Health Care Accelerator\\Payer"
+    BG = "1Platform\\1HLS\\Payer"
     BG_ID = "dffb45a2-a86e-4e2d-9541-f2b15cff324d"
     WORKER = "MICRO"
     DB_JDBC_URL = credentials("${BRANCH_NAME}-ajdbc-url")
