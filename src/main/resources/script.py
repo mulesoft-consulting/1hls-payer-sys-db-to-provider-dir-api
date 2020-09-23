@@ -13,7 +13,7 @@ if 'address-state' in attributes.queryParams:
     qp.append(' "State" =' + str(attributes.queryParams['address-state']))
 if 'address-postalcode' in attributes.queryParams:
     qp.append(' "zip" =' + str(attributes.queryParams['address-postalcode']))
-
+qp.append(' gender IS NOT NULL ')
 if len(qp) > 0:
     finalqstr = ' AND '.join(qp)
     QUERY += ' WHERE ' + finalqstr

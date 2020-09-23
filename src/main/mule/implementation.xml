@@ -18,7 +18,7 @@ http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mul
 		<logger level="INFO" doc:name="Log the incoming GET request Details" doc:id="268980a6-506c-42f6-9f2b-9b840be532a7" message="#[output application/json --- attributes]"/>
 		<ee:cache doc:name="Cache" doc:id="660dae20-d3da-499e-bd58-00dfcb72683f">
 			<db:select doc:name="Select Provider Info from my Database" doc:id="fdcc5419-1e6d-49d2-bae4-6fb4ea0ee46c" config-ref="Postgresql-DB-Configuration">
-				<db:sql><![CDATA[SELECT * from providerdirectory WHERE "ProviderID" is NOT NULL;]]></db:sql>
+				<db:sql><![CDATA[SELECT * from providerdirectory WHERE "ProviderID" is NOT NULL and gender is NOT NULL;]]></db:sql>
 			</db:select>
 		</ee:cache>
 		<ee:transform doc:name="Map-Database-Fields-to-FHIR-VHDIR" doc:id="4dc50ac7-1381-4df3-bf54-57722b0c76b2" >
